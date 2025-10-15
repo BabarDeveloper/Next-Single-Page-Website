@@ -10,10 +10,17 @@ interface ContactFormData {
   message: string;
 }
 
+// Define a proper type for the response data instead of using 'any'
+interface ContactResponseData {
+  id?: string;
+  timestamp?: string;
+  // Add other specific fields you expect from your API response
+}
+
 interface ApiResponse {
   success: boolean;
   message: string;
-  data?: any;
+  data?: ContactResponseData;
   error?: string;
 }
 

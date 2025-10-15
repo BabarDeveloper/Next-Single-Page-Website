@@ -119,7 +119,7 @@ export const HighlighterItem: React.FC<
 > = ({ children, className = "" }) => {
   return (
     <div
-      className={`relative overflow-hidden p-px before:pointer-events-none before:absolute before:-left-48 before:-top-48 before:z-30 before:h-96 before:w-96 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:rounded-full before:bg-lime-500 before:opacity-0 before:blur-[100px] before:transition-opacity before:duration-500 after:absolute after:inset-0 after:z-10 after:rounded-3xl after:opacity-0 after:transition-opacity after:duration-500  before:hover:opacity-20 after:group-hover:opacity-100 dark:before:bg-white/50  ${className}`}
+      className={`relative overflow-hidden p-px before:pointer-events-none before:absolute before:-left-48 before:-top-48 before:z-30 before:h-96 before:w-96 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:rounded-full before:bg-lime-500 before:opacity-0 before:blur-[100px] before:transition-opacity before:duration-500 after:absolute after:inset-0 after:z-10 after:rounded-3xl after:opacity-0 after:transition-opacity after:duration-500 before:hover:opacity-20 after:group-hover:opacity-100 dark:before:bg-white/50 ${className}`}
     >
       {children}
     </div>
@@ -136,6 +136,7 @@ interface ParticlesProps {
   vx?: number;
   vy?: number;
 }
+
 function hexToRgb(hex: string): number[] {
   // Remove the "#" character from the beginning of the hex color code
   hex = hex.replace("#", "");
@@ -152,6 +153,20 @@ function hexToRgb(hex: string): number[] {
   return [red, green, blue];
 }
 
+// Define proper TypeScript interfaces for Circle
+interface Circle {
+  x: number;
+  y: number;
+  translateX: number;
+  translateY: number;
+  size: number;
+  alpha: number;
+  targetAlpha: number;
+  dx: number;
+  dy: number;
+  magnetism: number;
+}
+
 export const Particles: React.FC<ParticlesProps> = ({
   className = "",
   quantity = 30,
@@ -165,7 +180,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const context = useRef<CanvasRenderingContext2D | null>(null);
-  const circles = useRef<any[]>([]);
+  const circles = useRef<Circle[]>([]); // Fixed: Replaced 'any' with 'Circle[]'
   const mousePosition = useMousePosition();
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
@@ -212,19 +227,6 @@ export const Particles: React.FC<ParticlesProps> = ({
         mouse.current.y = y;
       }
     }
-  };
-
-  type Circle = {
-    x: number;
-    y: number;
-    translateX: number;
-    translateY: number;
-    size: number;
-    alpha: number;
-    targetAlpha: number;
-    dx: number;
-    dy: number;
-    magnetism: number;
   };
 
   const resizeCanvas = () => {
