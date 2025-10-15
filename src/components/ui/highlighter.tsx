@@ -218,9 +218,14 @@ export const Particles: React.FC<ParticlesProps> = ({
     const size = Math.floor(Math.random() * 2) + 1;
     const alpha = 0;
     const targetAlpha = parseFloat((Math.random() * 0.3 + 0.1).toFixed(1));
-    const dx = (Math.random() - 0.5) * 0.2;
-    const dy = (Math.random() - 0.5) * 0.2;
-    const magnetism = 0.1 + Math.random() * 4;
+    
+    // SPEED REDUCED: Changed from 0.2 to 0.05 for slower movement
+    const dx = (Math.random() - 0.5) * 0.05;
+    const dy = (Math.random() - 0.5) * 0.05;
+    
+    // MAGNETISM REDUCED: Changed from 4 to 2 for slower mouse interaction
+    const magnetism = 0.1 + Math.random() * 2;
+    
     return {
       x,
       y,
@@ -308,12 +313,14 @@ export const Particles: React.FC<ParticlesProps> = ({
       }
       circle.x += circle.dx + vx;
       circle.y += circle.dy + vy;
+      
+      // EASE VALUE INCREASED: Changed division factor for slower mouse following
       circle.translateX +=
         (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) /
-        ease;
+        (ease * 2); // Slower mouse following
       circle.translateY +=
         (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) /
-        ease;
+        (ease * 2); // Slower mouse following
       
       if (
         circle.x < -circle.size ||
