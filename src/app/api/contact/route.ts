@@ -52,7 +52,6 @@ export async function POST(request: NextRequest) {
   from: 'onboarding@resend.dev',
   to: 'babardeveloper2@gmail.com',
         subject: `New Contact Form: ${subject}`,
-        reply_to: email,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background: #3B82F6; color: white; padding: 20px; text-align: center;">
