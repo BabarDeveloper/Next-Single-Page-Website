@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background: #3B82F6; color: white; padding: 20px; text-align: center;">
-              <h1>New Contact Form Submission</h1>
+              <h1>New Contact Form Submission successfully...</h1>
             </div>
             <div style="background: #f9f9f9; padding: 20px;">
               <div style="margin-bottom: 15px;">
